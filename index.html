@@ -287,7 +287,50 @@
     .copyright-notice strong{color:#173d79;font-weight:750}
     @media(max-width:590px){.copyright-notice{font-size:11px;padding:10px 12px;gap:6px}}
 
-  </style>
+  
+/* Card 03 infographic viewer: fit report WIDTH by default, allow scroll on long portrait pages. */
+#imageModal .oss-gallery-slide-wrap{
+  display:block!important;position:relative!important;
+  overflow:auto!important;overscroll-behavior:contain;
+  scroll-behavior:smooth;flex:1 1 auto;min-height:0;
+  text-align:center;background:#eaf2fb!important;
+  scrollbar-gutter:stable;
+}
+#imageModal .oss-gallery-slide-wrap img#ossGalleryBigImage{
+  display:block;position:relative;
+  width:100%!important;max-width:none!important;
+  height:auto!important;max-height:none!important;
+  object-fit:unset!important;
+  margin:0 auto;
+}
+#imageModal .oss-gallery-slide-wrap img#ossGalleryBigImage[hidden]{display:none!important}
+#imageModal .oss-gallery-slide-wrap.oss-fit-page{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+}
+#imageModal .oss-gallery-slide-wrap.oss-fit-page img#ossGalleryBigImage{
+  width:auto!important;max-width:100%!important;
+  height:auto!important;max-height:100%!important;
+  object-fit:contain!important;
+}
+#imageModal .oss-gallery-slide-wrap.oss-zoomed img#ossGalleryBigImage{
+  margin-left:0;margin-right:0;
+}
+#imageModal .oss-gallery-nav{position:sticky;top:45%;z-index:4}
+#imageModal .oss-gallery-nav.prev{float:left;left:9px;margin-right:-43px}
+#imageModal .oss-gallery-nav.next{float:right;right:9px;margin-left:-43px}
+#imageModal .oss-gallery-tools{display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;padding:8px 2px 2px}
+#imageModal .oss-gallery-tools button{border:1px solid #d5e3f5;background:#f1f6ff;color:#123d79;border-radius:9px;font-weight:800;padding:8px 14px;cursor:pointer;font:inherit;font-size:12px}
+#imageModal .oss-gallery-tools button:focus-visible{outline:3px solid #ec9e31;outline-offset:2px}
+#imageModal .oss-gallery-tools .oss-tool-active{background:#105ad7;color:#fff;border-color:#105ad7}
+#imageModal #galleryZoomLabel{min-width:51px;text-align:center;color:#234e87;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+#imageModal .modal-buttons{margin-top:6px!important}
+@media(max-width:590px){
+ #imageModal .oss-gallery-tools{gap:5px;padding:6px 1px}
+ #imageModal .oss-gallery-tools button{padding:7px 9px;font-size:11px}
+ #imageModal .oss-gallery-slide-wrap{scrollbar-gutter:auto}
+}
+
+</style>
 <style>
 /* Card 03: fixed WORK PERMIT icon; Google Drive photos are visible only in the gallery modal. */
 .card.orange .workpermit-card-art{
@@ -557,7 +600,7 @@
   <span id="galleryLoadText" hidden></span>
   <span id="galleryCardCounter" hidden></span>
 </div>
-<h2 class="card3-long-title">ศูนย์บริการใบอนุญาตทำงานของคนต่างด้าวเฉพาะกิจ- <span class="card-title-emphasis">วัดป้อมวิเชียรโชติการาม จังหวัดสมุทรสาคร</span></h2>
+<h2 class="card3-long-title" aria-label="ศูนย์บริการใบอนุญาตทำงานของคนต่างด้าวเฉพาะกิจ-วัดป้อมวิเชียรโชติการาม จังหวัดสมุทรสาคร">ศูนย์บริการใบอนุญาตทำงานของคนต่างด้าวเฉพาะกิจ-<span class="card-title-emphasis">วัดป้อมวิเชียรโชติการาม จังหวัดสมุทรสาคร</span></h2>
           <div class="card-rule" aria-hidden="true"></div>
           <p class="desc">ข้อมูลคิวและการให้บริการ<br>ณ ศูนย์บริการจังหวัดสมุทรสาคร</p>
           <div class="card-bottom">
@@ -598,12 +641,19 @@
   <div class="modal" id="imageModal" hidden role="dialog" aria-modal="true" aria-labelledby="imageTitle">
  <div class="modal-panel wide">
   <button class="close-modal" type="button" data-close aria-label="ปิดหน้าต่าง"><svg><use href="#icon-x"/></svg></button>
-  <h3 id="imageTitle">อินโฟ คิวของศูนย์สมุทรสาคร</h3>
+  <h3 id="imageTitle">ดูอินโฟกราฟิก</h3>
   <div class="oss-gallery-slide-wrap" id="ossGallerySlideWrap">
     <button class="oss-gallery-nav prev" type="button" id="galleryPrev" aria-label="รูปก่อนหน้า">‹</button>
     <img id="ossGalleryBigImage" alt="อินโฟกราฟิก OSS" hidden>
     <div class="oss-gallery-loading oss-gallery-modal-loading" id="galleryModalMessage">กำลังเชื่อมต่อภาพรายงาน...</div>
     <button class="oss-gallery-nav next" type="button" id="galleryNext" aria-label="รูปถัดไป">›</button>
+  </div>
+  <div class="oss-gallery-tools" aria-label="ปรับขนาดการแสดงภาพ">
+    <button type="button" id="galleryFitWidth" class="oss-tool-active">เต็มความกว้าง</button>
+    <button type="button" id="galleryFitPage">ดูทั้งภาพ</button>
+    <button type="button" id="galleryZoomOut" aria-label="ย่อภาพ">−</button>
+    <span id="galleryZoomLabel" aria-live="polite">100%</span>
+    <button type="button" id="galleryZoomIn" aria-label="ขยายภาพ">+</button>
   </div>
   <div class="oss-gallery-pager" id="ossGalleryPager" hidden aria-hidden="true"></div>
   <div class="oss-gallery-info" id="ossGalleryStatus" hidden aria-hidden="true"></div>
@@ -853,5 +903,52 @@ const OSS_GALLERY_REFRESH_MS=5*60*1000;
   loadList();
   setInterval(loadList,OSS_GALLERY_REFRESH_MS);
 })();
-</script></body>
+</script>
+<script>
+/* Zoom controls work on the already-loaded OSS gallery image, without changing Apps Script. */
+(function(){
+  const modal=document.getElementById('imageModal');
+  const wrap=document.getElementById('ossGallerySlideWrap');
+  const img=document.getElementById('ossGalleryBigImage');
+  const fitWidth=document.getElementById('galleryFitWidth');
+  const fitPage=document.getElementById('galleryFitPage');
+  const zoomOut=document.getElementById('galleryZoomOut');
+  const zoomIn=document.getElementById('galleryZoomIn');
+  const label=document.getElementById('galleryZoomLabel');
+  if(!modal||!wrap||!img||!fitWidth||!fitPage)return;
+  let mode='width',scale=1;
+  function update(){
+    wrap.classList.toggle('oss-fit-page',mode==='page');
+    wrap.classList.toggle('oss-zoomed',mode==='width'&&scale>1);
+    fitWidth.classList.toggle('oss-tool-active',mode==='width');
+    fitPage.classList.toggle('oss-tool-active',mode==='page');
+    fitWidth.setAttribute('aria-pressed',String(mode==='width'));
+    fitPage.setAttribute('aria-pressed',String(mode==='page'));
+    if(mode==='width'){
+      // Width is % of the full image viewport; 100% yields a genuine full-width portrait document.
+      img.style.setProperty('width',(scale*100)+'%','important');
+    }else{
+      img.style.removeProperty('width');
+    }
+    label.textContent=mode==='page'?'พอดีจอ':Math.round(scale*100)+'%';
+    zoomOut.disabled=mode==='page'||scale<=1;
+    zoomIn.disabled=mode==='page'||scale>=2.5;
+  }
+  function change(modeNext,scaleNext){
+    mode=modeNext;scale=Math.max(1,Math.min(2.5,scaleNext));
+    update();wrap.scrollTop=0;wrap.scrollLeft=0;
+  }
+  fitWidth.addEventListener('click',()=>change('width',1));
+  fitPage.addEventListener('click',()=>change('page',1));
+  zoomIn.addEventListener('click',()=>change('width',mode==='page'?1.25:scale+0.25));
+  zoomOut.addEventListener('click',()=>change('width',scale-0.25));
+  // Restore a predictable full-width view whenever the user reopens the report.
+  document.querySelectorAll('[data-open-image]').forEach(btn=>{
+    btn.addEventListener('click',()=>change('width',1));
+  });
+  img.addEventListener('load',()=>{wrap.scrollTop=0;wrap.scrollLeft=0});
+  update();
+})();
+</script>
+</body>
 </html>
