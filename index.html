@@ -330,6 +330,91 @@
  #imageModal .oss-gallery-slide-wrap{scrollbar-gutter:auto}
 }
 
+
+    /* 15 Oct 2026: copyright belongs immediately below the contact email, inside dark footer. */
+    .footer.footer-reference .footer-contact{min-width:0}
+    .footer.footer-reference .footer-copyright{
+      margin-top:7px;padding-top:7px;border-top:1px solid rgba(255,255,255,.22);
+      color:#dce8fa;font-size:clamp(12px,.95vw,14px);line-height:1.65;
+      font-weight:400;overflow-wrap:anywhere;
+    }
+    .footer.footer-reference .footer-copyright strong{
+      display:inline;color:#ffffff;font-size:inherit;line-height:inherit;font-weight:800;
+    }
+    @media(max-width:820px){
+      .footer.footer-reference .footer-copyright{font-size:12px;line-height:1.65}
+    }
+
+/* 15 Oct 2026: Center developer credit and email/copyright consistently. */
+.footer.footer-reference.footer-one-line{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  justify-items:center;
+  align-items:center;
+  gap:5px;
+  padding:20px clamp(12px,2.2vw,34px) 22px;
+  text-align:center;
+}
+.footer.footer-one-line .footer-block{
+  width:100%;min-width:0;
+  display:flex;justify-content:center;align-items:center;
+  text-align:center;
+  padding-left:0;border-left:0;
+}
+.footer.footer-one-line .footer-block:first-child{gap:9px}
+.footer.footer-one-line .footer-block:first-child svg{height:23px;width:23px;flex:none}
+.footer.footer-one-line .footer-credit{display:flex;justify-content:center;align-items:baseline;flex-wrap:wrap;column-gap:7px;row-gap:0;line-height:1.5}
+.footer.footer-one-line .footer-credit .label{font-size:14px;line-height:1.5}
+.footer.footer-one-line .footer-credit strong{font-size:16px;line-height:1.5}
+.footer.footer-one-line .footer-wide-contact{
+  padding-top:10px;
+  margin-top:7px;
+  border-top:1px solid rgba(255,255,255,.23);
+  gap:8px;
+  justify-content:center;
+  align-items:center;
+}
+.footer.footer-one-line .footer-wide-contact svg{width:19px;height:19px;flex:none}
+.footer.footer-one-line .footer-contact{
+  width:auto;min-width:0;
+  display:flex;align-items:baseline;justify-content:center;
+  column-gap:7px;row-gap:2px;
+  font-size:clamp(10px,.73vw,12px);
+  line-height:1.7;flex-wrap:nowrap;
+  white-space:nowrap;
+  text-align:center;
+}
+.footer.footer-one-line .footer-mailtext,
+.footer.footer-one-line .footer-copyright{
+  display:inline!important;
+  white-space:nowrap;
+  overflow-wrap:normal;
+  margin:0!important;padding:0!important;
+  border:0!important;
+  font-size:inherit;line-height:inherit;
+}
+.footer.footer-one-line .footer-inline-separator{color:#a2c2ec;flex:none}
+@media(max-width:1320px){
+  .footer.footer-one-line .footer-contact{
+    white-space:normal;flex-wrap:wrap;
+    font-size:11px;
+  }
+  .footer.footer-one-line .footer-mailtext,
+  .footer.footer-one-line .footer-copyright{white-space:normal}
+}
+@media(max-width:700px){
+  .footer.footer-reference.footer-one-line{padding:19px 15px 21px;gap:6px}
+  .footer.footer-one-line .footer-block:first-child svg{width:20px;height:20px}
+  .footer.footer-one-line .footer-credit{display:block;line-height:1.5}
+  .footer.footer-one-line .footer-credit .label{font-size:12px}
+  .footer.footer-one-line .footer-credit strong{font-size:14px}
+  .footer.footer-one-line .footer-wide-contact{flex-direction:column;gap:4px;padding-top:12px;margin-top:6px}
+  .footer.footer-one-line .footer-wide-contact svg{width:19px;height:19px}
+  .footer.footer-one-line .footer-contact{font-size:11px;line-height:1.7;white-space:normal;flex-wrap:wrap;column-gap:4px}
+  .footer.footer-one-line .footer-copyright{white-space:normal}
+  .footer.footer-one-line .footer-inline-separator{display:none}
+}
+
 </style>
 <style>
 /* Card 03: fixed WORK PERMIT icon; Google Drive photos are visible only in the gallery modal. */
@@ -507,7 +592,48 @@
       #imageModal .modal-buttons{margin-top:7px}
     }
 
-  </style>
+  
+/* Footer: contact and copyright share one line on wider screens. */
+.footer.footer-reference.footer-one-line{
+  grid-template-columns:minmax(0,1fr);
+  gap:10px;
+  padding:18px clamp(24px,4vw,65px);
+}
+.footer.footer-one-line .footer-block + .footer-block{
+  padding-left:0;border-left:0;
+}
+.footer.footer-one-line .footer-wide-contact{
+  grid-column:auto;
+  display:flex;align-items:center;gap:13px;
+  border-top:1px solid rgba(255,255,255,.23);
+  padding-top:11px;
+}
+.footer.footer-one-line .footer-wide-contact svg{width:24px;height:24px;flex:none;}
+.footer.footer-one-line .footer-contact{
+  display:flex;align-items:baseline;gap:7px;
+  font-size:clamp(11px,.83vw,13px);line-height:1.6;
+  white-space:nowrap;min-width:0;
+}
+.footer.footer-one-line .footer-copyright{
+  display:inline;margin:0;padding:0;border:0;
+  font-size:inherit;line-height:inherit;color:#dce8fa;
+  font-weight:400;white-space:nowrap;overflow-wrap:normal;
+}
+.footer.footer-one-line .footer-copyright strong{
+  display:inline;color:#fff;font-size:inherit;line-height:inherit;font-weight:800;
+}
+.footer.footer-one-line .footer-inline-separator{color:#92b5e5;flex:none;}
+@media(max-width:1280px){
+  .footer.footer-one-line .footer-contact{font-size:11px;white-space:normal;flex-wrap:wrap;column-gap:6px;row-gap:0;}
+  .footer.footer-one-line .footer-copyright{white-space:normal;}
+}
+@media(max-width:590px){
+  .footer.footer-one-line .footer-wide-contact{gap:11px;align-items:flex-start;}
+  .footer.footer-one-line .footer-wide-contact svg{width:22px;height:22px;}
+  .footer.footer-one-line .footer-contact{font-size:12px;line-height:1.7;}
+}
+
+</style>
 </head>
 <body>
   <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
@@ -617,16 +743,16 @@
   </main>
   <span class="card-state" id="cardImageState" hidden><svg><use href="#icon-info"></use></svg><span>ภาพสาธิต • ยังไม่เชื่อมภาพจริง</span></span>
 
-  <footer class="footer footer-reference">
+  <footer class="footer footer-reference footer-one-line">
     <div class="footer-block"><svg><use href="#icon-screen"/></svg><div class="footer-credit"><span class="label">พัฒนาระบบโดย</span> <strong>สำนักบริหารแรงงานต่างด้าว</strong></div></div>
-    <div class="footer-block"><svg><use href="#icon-mail"/></svg><div class="footer-contact">หากมีข้อสงสัยหรือข้อเสนอแนะ ท่านสามารถส่ง email: <a href="mailto:eworkpermit@doe.go.th">eworkpermit@doe.go.th</a></div></div>
+    <div class="footer-block footer-wide-contact"><svg><use href="#icon-mail"/></svg><div class="footer-contact">
+      <span class="footer-mailtext">หากมีข้อสงสัยหรือข้อเสนอแนะ ท่านสามารถส่ง email: <a href="mailto:eworkpermit@doe.go.th">eworkpermit@doe.go.th</a></span>
+      <span class="footer-inline-separator" aria-hidden="true"> | </span>
+      <span class="footer-copyright" role="note" aria-label="ประกาศลิขสิทธิ์">ข้อมูลมีลิขสิทธิ์และห้ามเผยแพร่ต่อหรือทำซ้ำโดยไม่ได้รับอนุญาตตาม <strong>พระราชบัญญัติลิขสิทธิ์ พ.ศ. 2537</strong></span>
+    </div></div>
     <div class="footer-block footer-clock-hidden" aria-hidden="true" hidden><span id="dateThai"></span><span id="timeThai"></span></div>
   </footer>
   <p class="credit">หน้าเว็บนี้เป็นศูนย์รวมลิงก์ไปยังเว็บไซต์ภายนอก · สถานะการให้บริการขึ้นอยู่กับระบบต้นทาง · อินโฟกราฟิกแสดงผ่านตัวเชื่อม Google Apps Script</p>
-  <div class="copyright-notice" role="note" aria-label="ประกาศลิขสิทธิ์">
-    <svg aria-hidden="true"><use href="#icon-shield"/></svg>
-    <span>ข้อมูลมีลิขสิทธิ์และห้ามเผยแพร่ต่อหรือทำซ้ำโดยไม่ได้รับอนุญาตตาม <strong>พระราชบัญญัติลิขสิทธิ์ พ.ศ. 2537</strong></span>
-  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <div class="modal" id="qrModal" hidden role="dialog" aria-modal="true" aria-labelledby="qrTitle">
