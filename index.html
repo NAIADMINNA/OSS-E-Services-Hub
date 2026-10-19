@@ -1048,8 +1048,22 @@ const OSS_GALLERY_REFRESH_MS=5*60*1000;
   $('#galleryNext').addEventListener('click',()=>select(position+1));
   $('#refreshGallery').addEventListener('click',()=>loadList({force:true}));
   $('#refreshGalleryCard').addEventListener('click',()=>loadList({force:true}));
+  // Opening the viewer must not invalidate an image that is already loaded.
+  // Background refresh continues every 5 minutes; the refresh buttons remain explicit.
   document.querySelectorAll('[data-open-image]').forEach(button=>{
-    button.addEventListener('click',()=>loadList({force:true}));
+    button.addEventListener('click',()=>{
+      if(images.length){
+        const current=images[position];
+        const currentKey=keyFor(current);
+        if(cache.has(currentKey)){
+          if(modalPhoto.hidden || !modalPhoto.getAttribute('src'))renderImage(cache.get(currentKey),current);
+        }else if(!imageTask){
+          select(position,{force:false});
+        }
+      }else if(!listTask){
+        loadList({force:false});
+      }
+    });
   });
   document.addEventListener('keydown',event=>{
     if($('#imageModal').hidden)return;
