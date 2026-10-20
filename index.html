@@ -658,6 +658,22 @@
   #guideModal .guide-image-modal #guideTitle{margin:4px 34px 14px;font-size:16px;}
   #guideModal .guide-image-modal .guide-figure img{border-radius:7px;}
 }
+
+/* Report date comes from the selected Google Drive image filename. */
+.card3-data-date{
+  display:table;
+  margin:2px auto 15px;
+  padding:7px 14px;
+  border:1px solid rgba(194,111,38,.25);
+  border-radius:999px;
+  background:#fff7ef;
+  color:#90501d;
+  text-align:center;
+  font-size:13px;
+  font-weight:750;
+  line-height:1.5;
+}
+.card3-data-date[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -754,6 +770,7 @@
 <h2 class="card3-long-title" aria-label="ศูนย์บริการใบอนุญาตทำงานของคนต่างด้าวเฉพาะกิจ-วัดป้อมวิเชียรโชติการาม จังหวัดสมุทรสาคร">ศูนย์บริการใบอนุญาตทำงานของคนต่างด้าวเฉพาะกิจ-<span class="card-title-emphasis">วัดป้อมวิเชียรโชติการาม จังหวัดสมุทรสาคร</span></h2>
           <div class="card-rule" aria-hidden="true"></div>
           <p class="desc">ข้อมูลคิวและการให้บริการ<br>ณ ศูนย์บริการจังหวัดสมุทรสาคร</p>
+          <p class="card3-data-date" id="card3DataDate" aria-live="polite" hidden></p>
           <div class="card-bottom">
             <button class="main-btn" type="button" data-open-image>ดูอินโฟกราฟิก <svg><use href="#icon-expand"/></svg></button>
             <div class="mini-actions">
@@ -932,6 +949,25 @@ const OSS_GALLERY_REFRESH_MS=5*60*1000;
     cardMsg.textContent=txt;modalMsg.textContent=txt;
     cardMsg.hidden=false;modalMsg.hidden=false;
   }
+  // Extract the report date from a filename such as DOE_Report_..._2026-10-19.png.
+  // Do not substitute the Google Drive modified timestamp: it is not the report date.
+  function reportDateFromFilename(filename){
+    const match = String(filename || '').match(/(?:^|[_\s])(\d{4})-(\d{2})-(\d{2})(?=\D|$)/);
+    if(!match)return '';
+    const year=Number(match[1]),month=Number(match[2]),day=Number(match[3]);
+    const validDate=new Date(Date.UTC(year,month-1,day));
+    if(year<1900||year>2200||validDate.getUTCFullYear()!==year||
+       validDate.getUTCMonth()!==month-1||validDate.getUTCDate()!==day)return '';
+    const thaiMonths=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+    return day+' '+thaiMonths[month-1]+' '+(year+543);
+  }
+  function updateReportDate(item){
+    const label=$('#card3DataDate');
+    if(!label)return;
+    const formatted=reportDateFromFilename(item?.name);
+    label.textContent=formatted?'ข้อมูล ณ วันที่ '+formatted:'';
+    label.hidden=!formatted;
+  }
   function updateCounter(){
     if(!images.length){
       $('#galleryCardCounter').textContent='';pager.textContent='';pager.hidden=true;
@@ -970,9 +1006,10 @@ const OSS_GALLERY_REFRESH_MS=5*60*1000;
     pre.src=data;
   }
   function select(index,{force=false}={}){
-    if(!images.length){updateCounter();imageHidden('ยังไม่มีรูปภาพใน Google Drive');return;}
+    if(!images.length){updateCounter();updateReportDate(null);imageHidden('ยังไม่มีรูปภาพใน Google Drive');return;}
     position=(index+images.length)%images.length;
     updateCounter();
+    updateReportDate(images[position]);
     const item=images[position], cacheKey=keyFor(item);
     if(imageTask){imageTask.finish();imageTask=null;}
     expectedImageId=item.id;
@@ -1018,13 +1055,13 @@ const OSS_GALLERY_REFRESH_MS=5*60*1000;
       id:String(x.id),name:String(x.name||'อินโฟกราฟิก OSS'),updated:Number(x.updated)||0
     })).sort((a,b)=>b.updated-a.updated);
     if(!next.length){
-      images=[];position=0;cache.clear();updateCounter();
+      images=[];position=0;cache.clear();updateCounter();updateReportDate(null);
       imageHidden('ยังไม่มีไฟล์รูปภาพในโฟลเดอร์ Google Drive');return;
     }
     const current=images[position];
     const latest=next[0];
     const change=!current||current.id!==latest.id||current.updated!==latest.updated;
-    images=next;position=0;updateCounter();
+    images=next;position=0;updateCounter();updateReportDate(images[0]);
     if(force){cache.clear();select(0,{force:true});}
     else if(change || modalPhoto.hidden){select(0,{force:change});}
     else showStatus('ตรวจสอบภาพล่าสุดแล้ว');
