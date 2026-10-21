@@ -1141,6 +1141,22 @@ main .cards .card.orange{
 .cards .card.orange .mini-actions .mini-btn{
   flex:0 1 200px!important;min-width:145px!important;
 }
+
+/* 21 Oct 2026: fill leftover viewport height *above* the cards rather than
+   leaving an exposed strip of background beneath the footer.
+   Works with browser zoom as well as large high-resolution monitors. */
+html{min-height:100%!important}
+body{
+  display:flex!important;
+  flex-direction:column!important;
+  min-height:100vh!important;
+  min-height:100dvh!important;
+}
+body > .site-header,
+body > main.content,
+body > .footer.footer-reference{flex-shrink:0!important}
+body > .hero{flex:1 0 auto!important}
+
 </style>
 </head>
 <body>
@@ -1235,7 +1251,6 @@ main .cards .card.orange{
 <h2 class="card3-long-title" aria-label="ศูนย์บริการใบอนุญาตทำงานของคนต่างด้าวเฉพาะกิจ-วัดป้อมวิเชียรโชติการาม จังหวัดสมุทรสาคร">ศูนย์บริการใบอนุญาตทำงานของคนต่างด้าวเฉพาะกิจ-<span class="card-title-emphasis">วัดป้อมวิเชียรโชติการาม จังหวัดสมุทรสาคร</span></h2>
           <div class="card-rule" aria-hidden="true"></div>
           <p class="desc">ข้อมูลคิวและการให้บริการ<br>ณ ศูนย์บริการจังหวัดสมุทรสาคร</p>
-          <p class="card3-data-date" id="card3DataDate" aria-live="polite" hidden></p>
           <div class="card-bottom">
             <a class="main-btn" href="https://108links.com/Report-Samutsakhon" target="_blank" rel="noopener noreferrer" aria-label="เข้าใช้งานระบบรายงานศูนย์สมุทรสาคร">เข้าใช้งานระบบ <svg><use href="#icon-external"/></svg></a>
             <div class="mini-actions">
@@ -1253,7 +1268,7 @@ main .cards .card.orange{
   <footer class="footer footer-reference footer-one-line">
     <div class="footer-block"><svg><use href="#icon-screen"/></svg><div class="footer-credit"><span class="label">พัฒนาระบบโดย</span> <strong>สำนักบริหารแรงงานต่างด้าว</strong></div></div>
     <div class="footer-block footer-wide-contact"><svg><use href="#icon-mail"/></svg><div class="footer-contact">
-      <span class="footer-mailtext">หากมีข้อสงสัยหรือข้อเสนอแนะ ท่านสามารถส่ง email: <a href="mailto:eworkpermit@doe.go.th">eworkpermit@doe.go.th</a></span>
+      <span class="footer-mailtext">หากมีข้อสงสัยหรือข้อเสนอแนะ ท่านสามารถส่ง email: <a href="mailto:wp_office@doe.go.th">wp_office@doe.go.th</a></span>
       <span class="footer-inline-separator" aria-hidden="true"> | </span>
       <span class="footer-copyright" role="note" aria-label="ประกาศลิขสิทธิ์">ข้อมูลมีลิขสิทธิ์และห้ามเผยแพร่ต่อหรือทำซ้ำโดยไม่ได้รับอนุญาตตาม <strong>พระราชบัญญัติลิขสิทธิ์ พ.ศ. 2537</strong></span>
     </div></div>
